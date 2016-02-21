@@ -28,12 +28,14 @@ def RGB2YUV(img):
     # for x in xrange(height):
     #     for y in xrange(weight):
     #       img[x,y] = np.dot(R_Y_mat, img[x,y])
-    print(img[15, 15])
-    img[15, 15] =  np.dot(R_Y_mat, img[15, 15])
-    print(img[15, 15])
-    img[15, 15] =  np.dot(Y_R_mat, img[15, 15])
-    print(img[15, 15])
-    # img = np.einsum('lk,ijl->ijk', R_Y_mat, img)
+
+    # print(img[15, 15])
+    # img[15, 15] =  np.dot(R_Y_mat, img[15, 15])
+    # print(img[15, 15])
+    # img[15, 15] =  np.dot(Y_R_mat, img[15, 15])
+    # print(img[15, 15])
+
+    img = np.einsum('lk,ijl->ijk', R_Y_mat, img)
 
     return img
 
@@ -44,9 +46,9 @@ def YUV2RGB(img):
     #     for y in xrange(weight):
     #       img[x,y] = np.dot(Y_R_mat, img[x,y])
 
-    img[15, 15] =  np.dot(R_Y_mat, img[15, 15])
+    # img[15, 15] =  np.dot(R_Y_mat, img[15, 15])
     # print(img[15,15])
-    # img = np.einsum('lk,ijl->ijk', Y_R_mat, img)
+    img = np.einsum('lk,ijl->ijk', Y_R_mat, img)
 
     return img
 
