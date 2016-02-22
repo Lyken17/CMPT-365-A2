@@ -9,14 +9,14 @@ dct_mat = np.array([])
 idct_mat = np.array([])
 
 def dct_2d(img):
-    return dct(dct(img, axis=0), axis=1)
+    return __dct__(__dct__(img, axis=0), axis=1)
 
 def idct_2d(img):
-    return idct(idct(img, axis=0), axis=1)
+    return __idct__(__idct__(img, axis=0), axis=1)
 
-def dct(img, axis = 0):
-    N = img.shape[1] if axis == 0 else img.shape[0]
-
+def __dct__(img, axis = 0):
+    # N = img.shape[1] if axis == 0 else img.shape[0]
+    N = 8
     global dct_mat, idct_mat, dct_size
     if N != dct_size:
         dct_mat = np.zeros((N, N))
@@ -33,9 +33,9 @@ def dct(img, axis = 0):
 
     return np.dot(img, dct_mat.T) if axis == 0 else np.dot(dct_mat, img)
 
-def idct(img, axis = 0):
-    N = img.shape[1] if axis == 0 else img.shape[0]
-
+def __idct__(img, axis = 0):
+    # N = img.shape[1] if axis == 0 else img.shape[0]
+    N = 8
     global dct_mat, idct_mat, dct_size
     if N != dct_size:
         dct_mat = np.zeros((N, N))

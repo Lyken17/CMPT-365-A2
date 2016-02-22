@@ -54,12 +54,13 @@ def YUV2RGB(img):
 
 
 def subsample(img):
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2YCR_CB)
-    # img = RGB2YUV(img)
+    # img = cv2.cvtColor(img, cv2.COLOR_RGB2YCR_CB)
+    img = RGB2YUV(img)
     img = chroma_4_2_0_subsampling(img)
-    # img = YUV2RGB(img)
-    img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2RGB)
+    img = YUV2RGB(img)
+    # img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2RGB)
     return img
+
 
 def chroma_4_2_0_subsampling(img):
 
