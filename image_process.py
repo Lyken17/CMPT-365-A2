@@ -1,18 +1,23 @@
 import numpy as np
 import cv2
 from numpy.linalg import inv
+import os, sys
 
+WRITE2FILE = True
 
-class YUV(object):
+class img_preprocess(object):
     def __init__(self, f):
         # print("YUV decorator has initialised")
         self.f = f
 
     def __call__(self, *args, **kwargs):
         print("enter func %s") % self.f.__name__
+
         self.f(*args, **kwargs)
+
         print("exit func %s") % self.f.__name__
 
+img_dir = "static/uploads/"
 
 R_Y_mat = np.array([[0.299,0.587,0.114],
                     [-0.14713, -0.28886, 0.436],
@@ -52,13 +57,37 @@ def YUV2RGB(img):
 
     return img
 
+def subsample_web_api(file):
+    img = cv2.imread(os.path.join(img_dir, file))
+    file = file.split('.')[0] + '.jpg'
+    cv2.imwrite(os.path.join(img_dir, file), img)
+
+    subsample(img)
+
 
 def subsample(img):
-    # img = cv2.cvtColor(img, cv2.COLOR_RGB2YCR_CB)
-    img = RGB2YUV(img)
-    img = chroma_4_2_0_subsampling(img)
-    img = YUV2RGB(img)
-    # img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2RGB)
+
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2YCR_CB)
+    # img = RGB2YUV(img)
+    if WRITE2FILE:
+        cv2.imwrite('static/uploads/temp_Y.jpg',img[:,:,0])
+        cv2.imwrite('static/uploads/temp_U.jpg',img[:,:,1])
+        cv2.imwrite('static/uploads/temp_V.jpg',img[:,:,2])
+
+
+    data = np.zeros_like(img, dtype=float)
+    data[:] = img
+
+    data = chroma_4_2_0_subsampling(data)
+
+    img[:] = data
+    # img = YUV2RGB(img)
+    img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2RGB)
+
+    if WRITE2FILE:
+        cv2.imwrite('static/uploads/temp_4_2_0.jpg',img)
+
+    cv2.destroyAllWindows()
     return img
 
 

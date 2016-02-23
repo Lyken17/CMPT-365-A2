@@ -9,8 +9,8 @@
 <div style="margin:100px;">
     {% include 'header.html' %}
     <div class="jumbotron" style="padding:40px;">
-        <h1>Chroma subsampling</h1>
         {%- if message.show == False -%}
+        <h1>DCT transformation</h1>
         <form action="" method=post enctype=multipart/form-data>
             <input type=file name=file>
             <input type=submit value=Upload>
@@ -31,34 +31,39 @@
                 <img class="resize" src="../static/uploads/temp_V.jpg" alt="original">
             </div>
             <div class="col-lg-4">
-
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Choose compress type
+                        Choose image quality
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:changeBody(1)">4:2:0</a></li>
-                        <li><a href="javascript:changeBody(2)">4:2:2</a></li>
-                        <li><a href="javascript:changeBody(3)">4:4:4</a></li>
+                        <li><a href="javascript:changeBody(1)">Q = 100</a></li>
+                        <li><a href="javascript:changeBody(2)">Q = 75</a></li>
+                        <li><a href="javascript:changeBody(3)">Q = 50</a></li>
+                        <li><a href="javascript:changeBody(4)">Q = 25</a></li>
                     </ul>
                 </div>
+
                 <div id="myclass1">
-                    <h2>4:2:0 subsampling</h2>
+                    <h2>Q = 100</h2>
                     <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
                 </div>
                 <div style="display: none" id="myclass2">
-                    <h2>4:2:2 subsampling</h2>
+                    <h2>Q = 75</h2>
                     <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
                 </div>
                 <div style="display: none" id="myclass3">
-                    <h2>4:4:4 subsampling</h2>
+                    <h2>Q = 50</h2>
                     <img class="resize" src="../static/uploads/temp.jpg" alt="original">
                 </div>
-
-
+                <div style="display: none" id="myclass4">
+                    <h2>Q = 25</h2>
+                    <img class="resize" src="../static/uploads/temp.jpg" alt="original">
+                </div>
+                
             </div>
         </div>
         {%- endif %}
+
     </div>
 </div>
 </body>

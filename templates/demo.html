@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to 365-A2</title>
+
+</head>
+<body>
+<div style="margin:100px;">
+    {% include 'header.html' %}
+    <div class="jumbotron" style="padding:40px;">
+        <h1>Chroma subsampling</h1>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Original img</h2>
+                <img class="resize" src="../static/uploads/temp.png" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>Y color space</h2>
+                <img class="resize" src="../static/uploads/temp_Y.jpg" alt="original">
+                <h2>U color space</h2>
+                <img class="resize" src="../static/uploads/temp_U.jpg" alt="original">
+                <h2>V color space</h2>
+                <img class="resize" src="../static/uploads/temp_V.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:2:0 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:2:2 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:4:4 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp.jpg" alt="original">
+            </div>
+        </div>
+
+    </div>
+    <div class="jumbotron" style="padding:40px;">
+        <h1>DCT transformation</h1>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Original img</h2>
+                <img class="resize" src="../static/uploads/temp.png" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>Y color space</h2>
+                <img class="resize" src="../static/uploads/temp_Y.jpg" alt="original">
+                <h2>U color space</h2>
+                <img class="resize" src="../static/uploads/temp_U.jpg" alt="original">
+                <h2>V color space</h2>
+                <img class="resize" src="../static/uploads/temp_V.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:2:0 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:2:2 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+            </div>
+            <div class="col-lg-4">
+                <h2>4:4:4 subsampling</h2>
+                <img class="resize" src="../static/uploads/temp.jpg" alt="original">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+{% include 'footer.html' %}
+</html>
