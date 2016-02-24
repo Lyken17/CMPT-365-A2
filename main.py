@@ -5,6 +5,7 @@ import os
 from werkzeug import secure_filename
 from image_process import  subsample_web_api
 from dct_trans import  dct_web_api
+import time
 
 app = Flask(__name__)
 # app.register_blueprint(app)
@@ -23,8 +24,9 @@ def index():
 
 @app.route('/dct', methods=['GET', 'POST'])
 def dct():
+    show = request.args.get('show')
     message = {}
-    message['show'] = False
+    message['show'] = False if show == None else True
     if request.method == 'POST':
         file = request.files['file']
 
@@ -33,9 +35,10 @@ def dct():
             filename = "temp_2" + '.' + filename.split('.')[-1]
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            dct_web_api(file)
-            message['show'] = True
+            some = dct_web_api(filename)
 
+            time.sleep(1)
+            message['show'] = True
             return render_template('dct.html', message=message)
 
     return render_template('dct.html', message=message)
@@ -52,7 +55,9 @@ def allowed_file(filename):
 
 @app.route('/chroma', methods=['GET', 'POST'])
 def chroma():
+    show = request.args.get('show')
     message = {}
+    # message['show'] = False if show == None else True
     message['show'] = False
     if request.method == 'POST':
         file = request.files['file']
@@ -62,8 +67,9 @@ def chroma():
             filename = "temp" + '.' + filename.split('.')[-1]
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            subsample_web_api(filename)
+            some = subsample_web_api(filename)
             message['show'] = True
+
             return render_template('chroma.html', message=message)
 
     return render_template('chroma.html', message=message)

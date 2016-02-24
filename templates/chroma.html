@@ -9,18 +9,21 @@
 <div style="margin:100px;">
     {% include 'header.html' %}
     <div class="jumbotron" style="padding:40px;">
-        <h1>Chroma subsampling</h1>
+        <h1>Chroma subsampling
+            <button type="button" class="btn"><a href="/chroma?show=1">Show</a></button>
+        </h1>
+
         {%- if message.show == False -%}
         <form action="" method=post enctype=multipart/form-data>
             <input type=file name=file>
             <input type=submit value=Upload>
         </form>
         {%- endif %}
-        {%- if message.show != None -%}
+        {%- if message.show == True -%}
         <div class="row">
             <div class="col-lg-4">
                 <h2>Original img</h2>
-                <img class="resize" src="../static/uploads/temp.png" alt="original">
+                <img class="resize" src="../static/uploads/temp.jpg" alt="original">
             </div>
             <div class="col-lg-4">
                 <h2>Y color space</h2>

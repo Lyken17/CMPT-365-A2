@@ -7,7 +7,8 @@ from image_process import *
 from image_process import *
 from dct_trans import *
 
-img_dir = "static/uploads/temp.png"
+img_dir = "static/uploads/temp.jpg"
+img_dir = "static/temp.jpg"
 
 
 def main():
@@ -26,7 +27,8 @@ def main():
 
 def test():
     img = cv2.imread(img_dir)
-    img = dct_quantization(img , 100)
+    img = cv2.resize(img, (512, 512))
+    img = dct_quantization(img, 15)
     cv2.imshow("image", img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()

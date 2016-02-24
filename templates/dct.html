@@ -9,26 +9,29 @@
 <div style="margin:100px;">
     {% include 'header.html' %}
     <div class="jumbotron" style="padding:40px;">
+
+        <h1>DCT transform
+            <button type="button" class="btn"><a href="/dct?show=1">Show</a></button>
+        </h1>
         {%- if message.show == False -%}
-        <h1>DCT transformation</h1>
         <form action="" method=post enctype=multipart/form-data>
             <input type=file name=file>
             <input type=submit value=Upload>
         </form>
         {%- endif %}
-        {%- if message.show != None -%}
+        {%- if message.show == True -%}
         <div class="row">
             <div class="col-lg-4">
                 <h2>Original img</h2>
-                <img class="resize" src="../static/uploads/temp.png" alt="original">
+                <img class="resize" src="../static/uploads/temp_2.jpg" alt="original">
             </div>
             <div class="col-lg-4">
                 <h2>Y color space</h2>
-                <img class="resize" src="../static/uploads/temp_Y.jpg" alt="original">
+                <img class="resize" src="../static/uploads/temp_2_dct_1.jpg" alt="original">
                 <h2>U color space</h2>
-                <img class="resize" src="../static/uploads/temp_U.jpg" alt="original">
+                <img class="resize" src="../static/uploads/temp_2_dct_2.jpg" alt="original">
                 <h2>V color space</h2>
-                <img class="resize" src="../static/uploads/temp_V.jpg" alt="original">
+                <img class="resize" src="../static/uploads/temp_2_dct_3.jpg" alt="original">
             </div>
             <div class="col-lg-4">
                 <div class="dropdown">
@@ -45,21 +48,21 @@
 
                 <div id="myclass1">
                     <h2>Q = 100</h2>
-                    <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+                    <img class="resize" src="../static/uploads/temp_2_100.jpg" alt="original">
                 </div>
                 <div style="display: none" id="myclass2">
                     <h2>Q = 75</h2>
-                    <img class="resize" src="../static/uploads/temp_4_2_0.jpg" alt="original">
+                    <img class="resize" src="../static/uploads/temp_2_75.jpg" alt="original">
                 </div>
                 <div style="display: none" id="myclass3">
                     <h2>Q = 50</h2>
-                    <img class="resize" src="../static/uploads/temp.jpg" alt="original">
+                    <img class="resize" src="../static/uploads/temp_2_50.jpg" alt="original">
                 </div>
                 <div style="display: none" id="myclass4">
                     <h2>Q = 25</h2>
-                    <img class="resize" src="../static/uploads/temp.jpg" alt="original">
+                    <img class="resize" src="../static/uploads/temp_2_25.jpg" alt="original">
                 </div>
-                
+
             </div>
         </div>
         {%- endif %}
