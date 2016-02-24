@@ -8,16 +8,27 @@ img_dir = "static/uploads/"
 dct_mat = np.array([])
 idct_mat = np.array([])
 
-quantization_table = np.array([[16, 11, 10, 16, 24, 40, 51, 61],
-                               [12, 12, 14, 19, 26, 58, 60, 55],
-                               [14, 13, 16, 24, 40, 57, 69, 56],
-                               [14, 17, 22, 29, 51, 87, 80, 62],
-                               [18, 22, 37, 56, 68, 109, 103, 77],
-                               [24, 35, 55, 64, 81, 104, 113, 92],
-                               [49, 64, 78, 87, 103, 121, 120, 101],
-                               [72, 92, 95, 98, 112, 100, 103, 99]], dtype=float)
+luma_table = np.array([[16, 11, 10, 16, 24, 40, 51, 61],
+                       [12, 12, 14, 19, 26, 58, 60, 55],
+                       [14, 13, 16, 24, 40, 57, 69, 56],
+                       [14, 17, 22, 29, 51, 87, 80, 62],
+                       [18, 22, 37, 56, 68, 109, 103, 77],
+                       [24, 35, 55, 64, 81, 104, 113, 92],
+                       [49, 64, 78, 87, 103, 121, 120, 101],
+                       [72, 92, 95, 98, 112, 100, 103, 99]], dtype=float)
+
+chroma_table = np.array([[17, 18, 24, 47, 99, 128, 192, 256],
+                    [18, 21, 26, 66, 99, 128, 192, 256],
+                    [24, 26, 56, 99, 128, 192, 256, 512],
+                    [47, 66, 99, 128, 192, 256, 512, 1024],
+                    [99, 99, 128, 192, 256, 512, 1024, 2048],
+                    [128, 128, 192, 256, 512, 1024, 3072, 4096],
+                    [192, 192, 256, 512, 1024, 3072, 6144, 7168],
+                    [256, 256, 512, 1024, 2048, 4096, 7168, 8192]], dtype=float)
 
 from PIL import Image
+
+
 
 def dct_web_api(file):
     print os.path.join(img_dir, file)
@@ -31,10 +42,14 @@ def dct_web_api(file):
         temp_name = file.split('.')[0] + '_dct_' + str(q+1) + '.jpg'
         cv2.imwrite(os.path.join(img_dir, temp_name), trans[:,:,q])
 
-
     for q in xrange(100, 0, -25):
         temp_name = file.split('.')[0] + '_' + str(q) + '.jpg'
         temp_img = dct_quantization(img, q)
+        cv2.imwrite(os.path.join(img_dir, temp_name), temp_img)
+
+    for q in xrange(100, 0, -25):
+        temp_name = file.split('.')[0] + '_' + str(q) + '_chroma.jpg'
+        temp_img = dct_quantization(img, q, choice=1)
         cv2.imwrite(os.path.join(img_dir, temp_name), temp_img)
 
     '''
@@ -60,20 +75,20 @@ def dct_YUV(img):
     img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2RGB)
     return img
 
-def dct_quantization(img, quality=100):
+def dct_quantization(img, quality=100, choice=0):
     scaling_factor = float(100 - quality) / 50 if quality >= 50 else float(50) / quality
 
     img = cv2.cvtColor(img, cv2.COLOR_RGB2YCR_CB)
     data = np.zeros_like(img, dtype=float)
     data[:] = img
 
-    global quantization_table
+    global luma_table, chroma_table
 
-    q_table = quantization_table / 8
+    q_table = luma_table / 12 if choice == 0 else chroma_table / 16
 
     if quality != 100:
         if scaling_factor != 0.0:
-            q_table = np.round(quantization_table * scaling_factor)
+            q_table = np.round(luma_table * scaling_factor)
 
     for c in xrange(3):
         for x in xrange(0, 512, 8):

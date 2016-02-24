@@ -28,7 +28,7 @@ def main():
 def test():
     img = cv2.imread(img_dir)
     img = cv2.resize(img, (512, 512))
-    img = dct_quantization(img, 15)
+    img = dct_quantization(img, choice=1)
     cv2.imshow("image", img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
