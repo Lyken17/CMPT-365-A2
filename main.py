@@ -57,8 +57,8 @@ def allowed_file(filename):
 def chroma():
     show = request.args.get('show')
     message = {}
-    # message['show'] = False if show == None else True
-    message['show'] = False
+    message['show'] = False if show == None else True
+    # message['show'] = False
     if request.method == 'POST':
         file = request.files['file']
 
